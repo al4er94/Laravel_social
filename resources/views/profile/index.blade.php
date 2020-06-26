@@ -9,6 +9,13 @@
         </div>
     </div>
     <div class="col-lg-6 col-lg-offset-3">
+        @if(Auth::user()->hasFriendRequestPending($user))
+        <p>В ожидании подтверждения запроса в друзья</p>
+        @elseif(Auth::user()->hasFriendRequestReceived($user))
+        <a href="#" class="btn btn-primary mb-2">Подтвердить дружбу</a>
+        @elseif(Auth::user()->isFriendWith($user))
+        <p> {{ $user->getFirsNameOrUSerName() }} у Вас в друзьях</p>
+        @endif
         <h5>Друзья {{ $user->getFirsNameOrUSerName() }}</h5>
         @if(!$user->friends()->count())
         <p> {{ $user->getFirsNameOrUSerName() }} нет друзей</p>
