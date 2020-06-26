@@ -26,7 +26,7 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
-    
+    //Получаем имя или фамилию
     public function getName(){
         if($this->first_name && $this->last_name){
             return "$this->first_name $this->last_name";
@@ -55,7 +55,7 @@ class User extends Authenticatable
     }
     
     public function friendOf(){
-        return $this->belongsToMany('App\Models\User', 'friends', 'friend_id', 'user_id');
+        return ($this->belongsToMany('App\Models\User', 'friends', 'friend_id', 'user_id'));
     }
     
     public function friends(){
@@ -65,5 +65,31 @@ class User extends Authenticatable
     
     public function friendRequest(){
         return $this->friendsOfMine()->wherePivot('accepted', false)->get();
+    }
+    //Запрос на ожидание друга
+    public function friendRequestsPending(){
+        return $this->friendOf()->wherePivot('accepted', false)->get();
+    }
+    //Еcть запрос на добавление в друзья
+    public function hasFriendRequestPending(User $user){
+        return (bool) $this->friendRequestsPending()->where('id', $user->id)->count();
+    }
+    //Получил запрос о дружбе
+    public function hasFriendRequestReceived(User $user){
+        return (bool)$this->friendRequest()->where('id', $user->id)->count();
+    }
+    //Добавить друга
+    public function addFriend(User $user){
+        $this->friendOf()->attach($user->id);
+    }
+    //Принять запрос на дружбу
+    public function acceptFriendRequest(User $user){
+        $this->friendRequest()->where('id', $user->id)->first()->pivot()->update([
+            'accepted' => true
+        ]);
+    }
+    //Дружит с 
+    public function isFriendWith(User $user){
+        return (bool) $this->friends()->where('id', $user->id)->count();
     }
 }
