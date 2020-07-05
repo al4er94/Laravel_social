@@ -82,14 +82,23 @@ class User extends Authenticatable
     public function addFriend(User $user){
         $this->friendOf()->attach($user->id);
     }
+    //Удалить друга
+    public function deleteFriend(User $user){
+        $this->friendOf()->detach($user->id);
+        $this->friendsOfMine()->detach($user->id);
+    }
     //Принять запрос на дружбу
     public function acceptFriendRequest(User $user){
-        $this->friendRequest()->where('id', $user->id)->first()->pivot()->update([
+        $this->friendRequest()->where('id', $user->id)->first()->pivot->update([
             'accepted' => true
         ]);
     }
     //Дружит с 
     public function isFriendWith(User $user){
         return (bool) $this->friends()->where('id', $user->id)->count();
+    }
+    //Пользователю принадлежит статус
+    public function statuses(){
+        return $this->hasMany('App\Models\Status', 'user_id');
     }
 }
