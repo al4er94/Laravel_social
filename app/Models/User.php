@@ -24,7 +24,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'password', 'token',
     ];
     //Получаем имя или фамилию
     public function getName(){
