@@ -31,11 +31,40 @@
                 <p>{{ $status ->body }}</p>
                 <ul class="list-inline">
                     <li class="list-inline-item">{{ $status ->created_at->diffForHumans() }}</li>
+                    @if($status->user->id !== Auth::user()->id)
+                        <li class="list-inline-item">
+                            <a href="{{ route('status.like', ['status_id' =>$status->id ])}}">Лайк</a>
+                        </li>
+                    @endif
                     <li class="list-inline-item">
-                        <a href="#">Лайк</a>
+                       {{$status->likes->count()}}{{Illuminate\Support\Str::plural('like',$status->likes->count())}}
                     </li>
-                    <li class="list-inline-item">10 Лайков</li>
                 </ul>
+                @foreach($status->replies as $reply)
+                <div class="media">
+                    <a class="mr-3" href="{{ route('profile.index', $status -> user->username) }}">
+                        <img class="media-object rounded" src="{{ $status -> user -> getAvatarUrl()  }}"
+                             alt="{{ $status -> user -> getFirsNameOrUSerName() }}">
+                    </a>
+                    <div class="media-body">
+                        <h4>
+                            <a href="{{ route('profile.index', ['username' => $status->user->username]) }}">{{ $status -> user -> getNameOrUSername() }}</a>
+                        </h4>
+                        <p>{{ $reply ->body }}</p>
+                        <ul class="list-inline">
+                            <li class="list-inline-item">{{ $reply ->created_at->diffForHumans() }}</li>
+                            @if($reply->user->id !== Auth::user()->id)
+                                <li class="list-inline-item">
+                                    <a href="{{ route('status.like', ['status_id' =>$reply->id ])}}">Лайк</a>
+                                </li>
+                            @endif
+                            <li class="list-inline-item">
+                                {{$reply->likes->count()}}{{Illuminate\Support\Str::plural('like',$reply->likes->count())}}
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                @endforeach
 
                 <form method="POST" action="{{ route('status.reply', ['statusId' => $status -> id])}}" class="mb-4">
                     {{ csrf_field() }}
