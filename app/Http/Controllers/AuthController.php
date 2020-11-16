@@ -13,14 +13,14 @@ class AuthController extends Controller
     
     public function postSignup(Request $request){
         $this->validate($request, [
-            'email' => 'required|unique:users|email|max:255',
-            'username' => 'required|unique:users|alpha_dash|max:20',
-            'password' => 'required|min:6'
+            'register_email' => 'required|unique:users,email|email|max:255',
+            'register_username' => 'required|unique:users,username|alpha_dash|max:20',
+            'register_password' => 'required|min:6'
         ]);
         User::create([
-            'email' => $request->input('email'),
-            'username' => $request->input('username'),
-            'password' => bcrypt($request->input('password'))
+            'email' => $request->input('register_email'),
+            'username' => $request->input('register_username'),
+            'password' => bcrypt($request->input('register_password'))
         ]);
         return redirect()->route('home')->with('info', 'Вы успешно зарегистрировались');
     }
