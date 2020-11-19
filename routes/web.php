@@ -28,6 +28,8 @@ Route::post('/signin', 'AuthController@postSignIn')->middleware('guest');
 
 Route::get('/signout', 'AuthController@getSignOut')->name('auth.signout');
 
+Route::get('/login', 'AuthController@loginForm')->middleware('guest')->name('loginForm');
+
 /*
  * Поиск
  */

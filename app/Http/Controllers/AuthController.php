@@ -44,4 +44,11 @@ class AuthController extends Controller
         Auth::logout();
         return redirect()->route('home');
     }
+    
+    public function loginForm(){
+        if(Auth::check()){
+            return redirect()->back();
+        }
+        return view('auth.loginform');
+    }
 }

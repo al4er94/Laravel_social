@@ -34,10 +34,7 @@
                 </li>
                 @else
                 <li class="nav-item active">
-                    <a class="nav-link" href="{{ route('auth.signup') }}">Регистрация</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('auth.signin') }}">Войти</a>
+                    <a class="nav-link" href="{{ route('loginForm') }}">Личный кабинет</a>
                 </li>
                 @endif
             </ul>

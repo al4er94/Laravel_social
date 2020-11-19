@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class DatabaseSeeder extends Seeder
+class OptionSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -11,17 +11,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $this->call('OptionSeeder');
-    }
-}
-
-class OptionSeeder extends Seeder
-{
-    public function run()
-    {
          DB::table('options')->insert([
             'option_name' => 'nameGardening',
-             'option_value' => 'Восход'
+            'option_value' => 'Восход'
          ]);
          
     }

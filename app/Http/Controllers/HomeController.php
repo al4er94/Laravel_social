@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Auth;
 use App\Models\Status;
+use App\Models\Options;
+use DB;
 class HomeController extends Controller
 {
     
@@ -18,7 +20,8 @@ class HomeController extends Controller
             
             return view('timeline.index', compact('statuses'));
         }
+        $options = Options::getOption('nameGardening');
         return view ('home');        
     }
-   
+       
 }
