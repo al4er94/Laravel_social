@@ -23,13 +23,12 @@ class HomeController extends Controller
         }
         $name = Options::getOption('nameGardening');
         $news = new News;
-        $news = $news->getNewsByCount(1);
-        dd($news);
+        $newsRows = $news->getNewsByCount(2);
         $data = [
             'name' => $name,
-            'news' => $news
+            'news' => $newsRows
         ];
-        return view ('home', compact('name'));        
+        return view ('home', compact('data'));        
     }
        
 }
