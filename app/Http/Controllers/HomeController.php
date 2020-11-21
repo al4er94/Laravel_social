@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Auth;
 use App\Models\Status;
 use App\Models\Options;
+use App\Models\News;
 use DB;
 class HomeController extends Controller
 {
@@ -20,8 +21,15 @@ class HomeController extends Controller
             
             return view('timeline.index', compact('statuses'));
         }
-        $options = Options::getOption('nameGardening');
-        return view ('home');        
+        $name = Options::getOption('nameGardening');
+        $news = new News;
+        $news = $news->getNewsByCount(1);
+        dd($news);
+        $data = [
+            'name' => $name,
+            'news' => $news
+        ];
+        return view ('home', compact('name'));        
     }
        
 }

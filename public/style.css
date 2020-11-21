@@ -12,3 +12,6 @@
     background-color: #6d7d86;
     border-color: #474c75;
 }
+.bg-not-primary{
+    background-color: #253b48!important;
+}
