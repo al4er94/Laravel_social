@@ -15,13 +15,13 @@
   <!-- Кнопка с выпадающим меню -->
   <div class="btn-group">
     <button type="button" data-toggle="dropdown" class="btn btn-info dropdown-toggle">
-      Кнопка с выпадающим меню 
+      Важное 
       <span class="caret"></span>
     </button>
     <!-- Выпадающее меню -->
     <ul class="dropdown-menu">
       <!-- Пункты меню -->
-      <li><a href="#">Пункт 1</a></li>
+      <li><a href="{{ route('documents')}}">Документы</a></li>
       <li><a href="#">Пункт 2</a></li>
       <li class="divider"></li>
       <li><a href="#">Пункт 3</a></li>

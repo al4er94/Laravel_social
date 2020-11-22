@@ -15,3 +15,6 @@
 .bg-not-primary{
     background-color: #253b48!important;
 }
+.news-block{
+    border: 1px solid black;
+}

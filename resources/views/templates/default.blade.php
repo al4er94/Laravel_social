@@ -13,9 +13,8 @@
   </head>
   <body>
       @include('templates.partians.navigation')      
-      
       <div class="container">
-          @include('templates.partians.alerts')
+          @include('templates.partians.alerts')   
           @yield('content')
       </div>
      @include('templates.partians.footer') 

@@ -61,3 +61,7 @@ Route::post('/status/{statusId}/replys', 'StatusController@postReply')->middlewa
  * Лайки 
  */
 Route::get('/status/{statusId}/like', 'StatusController@getLike')->middleware('auth')->name('status.like');
+/*
+ * Публичка
+ */
+Route::get('/documents', 'DocumentsController@getDocuments')->name('documents');

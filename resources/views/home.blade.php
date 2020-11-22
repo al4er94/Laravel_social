@@ -10,7 +10,7 @@
         @include('public.publicMenu') 
     </div>
 </div>  
-<div class="row mr-md-3 block">
+<div class="colum news-block">
         @include('public.news') 
 </div>
 @endsection
