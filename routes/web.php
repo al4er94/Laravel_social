@@ -65,3 +65,7 @@ Route::get('/status/{statusId}/like', 'StatusController@getLike')->middleware('a
  * Публичка
  */
 Route::get('/documents', 'DocumentsController@getDocuments')->name('documents');
+/*
+ * Админка
+ */
+Route::get('/admin', 'Admin\AdminController@getAdmin')->name('admin');
