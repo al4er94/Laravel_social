@@ -18,3 +18,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::get('/adminLogin', 'Admin\AdminAuth@getAuth');
+Route::post('/adminLogin/auth', 'Admin\AdminAuth@postAuth');

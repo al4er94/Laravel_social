@@ -9,4 +9,8 @@ class AdminAuth extends Controller
     public function getAuth(){
         return '123';
     }
+    
+    public function postAuth(Request $request){
+        return ($request);
+    }
 }
