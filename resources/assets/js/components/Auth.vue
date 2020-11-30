@@ -26,7 +26,7 @@
                   userLogin: this.userLogin,
                   userPassword: this.userPassword
               }
-              loginForm = JSON.stringify(loginForm);
+              //loginForm = JSON.stringify(loginForm);
               axios.post(location.origin+'/api/adminLogin/auth', loginForm)
                 .then( function(response) {
                     console.log(response.data)
