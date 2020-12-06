@@ -1,11 +1,12 @@
 <template>
   <div id="app">
-      <h2>Todods1</h2>
+      <h2>Todods</h2>
       <hr>
-      <Auth/>
+      <router-view/>
   </div>
 </template>
 <script>
+    //import router from './router'
     import Auth from './components/Auth'
     export default {
         components: {

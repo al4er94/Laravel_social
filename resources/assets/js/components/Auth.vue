@@ -13,7 +13,10 @@
  </div>
 </template>
 <script>
+    //import router from '../router'
+    //console.log(router);
     export default {
+      //router,
       data(){
           return{
               userLogin: '',
@@ -30,6 +33,9 @@
               axios.post(location.origin+'/api/adminLogin/auth', loginForm)
                 .then( function(response) {
                     console.log(response.data)
+                    if(response.data == true){
+                        router.go('/admin/work')
+                    }
                 });
               //console.log(loginForm);
           }

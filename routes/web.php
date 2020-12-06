@@ -69,3 +69,11 @@ Route::get('/documents', 'DocumentsController@getDocuments')->name('documents');
  * Админка
  */
 Route::get('/admin', 'Admin\AdminController@getAdmin')->name('admin');
+
+//Route::group(['prefix' => 'admin'], function () {
+//    Voyager::routes();
+//});
+
+Route::get('/{vue_capture?}', function () {
+    return view('admin.admin');
+})->where('vue_capture', '[\/\w\.-]*');
