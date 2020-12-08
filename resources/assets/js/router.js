@@ -1,20 +1,22 @@
 import Vue from 'vue';
-import Router from 'vue-router'
+import VueRouter from 'vue-router'
 import Auth from './components/Auth'
-import ExampleComponent from './components/ExampleComponent'
+import Work from './components/Work'
 
 
-Vue.use(Router);
-export default new Router({
+Vue.use(VueRouter);
+export default new VueRouter({
     mode: 'history',
     routes: [
         {
             path: '/admin',
+            name: 'auth',
             component: Auth
         },
         {
             path: '/admin/work',
-            component: ExampleComponent
+            name: 'work',
+            component: Work
         }
     ]
 })
