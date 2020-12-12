@@ -10,7 +10,6 @@
      <input type="hidden" name="_token" value="Global.csrfToken">
      <hr/>
      <button type="submit">Login</button>
-     <button @click ="$router.push('/admin/work') ">123</button>
    </form>
  </div>
 </template>
@@ -26,17 +25,27 @@
       methods:{
           login(){
               var router = this.$router;
-              let loginForm = {
+              let loginForm = { 
                   userLogin: this.userLogin,
                   userPassword: this.userPassword
               }
               axios.post(location.origin+'/api/adminLogin/auth', loginForm)
                 .then( function(response) {
                     if(response.data == true){
-                        console.log(router.push('/admin/work'));
+                        localStorage.setItem('admin', 'true');
+                        router.push('/admin/work');
                     }
                 });
+          },
+          checkAuth(){
+              let admin = localStorage.getItem('admin');
+              if(admin == 'true'){
+                this.$router.push('/admin/work');
+              }
           }
+      },
+      mounted() {
+          this.checkAuth();
       }
     }
 </script>

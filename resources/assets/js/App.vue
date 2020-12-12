@@ -1,7 +1,6 @@
 <template>
   <div id="app">
-      <h2>Todods</h2>
-      <button @click ="goBack">test</button>
+      <h2>Админка</h2>
       <hr>
       <router-view/>
   </div>
