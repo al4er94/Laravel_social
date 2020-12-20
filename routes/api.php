@@ -19,3 +19,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::get('/adminLogin', 'Admin\AdminAuth@getAuth');
 Route::post('/adminLogin/auth', 'Admin\AdminAuth@postAuth');
+
+Route::get('/getNews', 'Admin\AdminController@getNews');
+Route::post('/postNews', 'Admin\AdminController@addNews');
