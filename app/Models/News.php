@@ -11,7 +11,7 @@ class News extends Model
     }
     
     public function getAllNews(){
-        return $this->get(['news_header', 'new_content']);
+        return $this->get(['id', 'news_header', 'new_content']);
     }
     
     public function putRows($request){
