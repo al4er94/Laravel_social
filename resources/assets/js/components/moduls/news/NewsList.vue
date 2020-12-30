@@ -53,12 +53,13 @@
                 //document.querySelectorAll('.form-new-news input[name="news-header"]').value='';
             },
             changeNews(){
-                document.addEventListener('click', function(e){
-                    if(e.target.classList.contains('change')) {
-                        console.log(e);
-                        console.log(e.getAttribute('data'));
-                    } 
-                });             
+                let changeLink = document.querySelectorAll('a.change');
+                changeLink.forEach(function(el){
+                    var currentEl = el;
+                    el.onclick = function(elem){
+                        let id = currentEl.getAttribute('data-id');
+                    }
+                })       
             },
             onSubmit(){
                 var data = {
