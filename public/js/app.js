@@ -48960,40 +48960,72 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
             header: null,
+            id: null,
             body: null
         };
     },
 
     methods: {
         getNews: function getNews() {
+            var exportDef = this;
             fetch(location.origin + '/api/getNews', { method: "GET" }).then(function (resp) {
                 resp.json().then(function (data) {
                     var html = '';
                     data.forEach(function (currentValue) {
-                        html += '<li>' + currentValue.news_header + '</li>';
+                        html += '<li>' + currentValue.news_header + ' ' + '<a class="change" data-id="' + currentValue.id + '">ред.</a></li>';
                     });
                     document.querySelector('.newsList #newsListUl').innerHTML = html;
+                    exportDef.changeNews();
                 });
             });
         },
         showForm: function showForm() {
-            console.log('showForm');
-            document.querySelector('.newsList .for-new-news').style.display = 'block';
+            this.id = null;
+            this.header = null;
+            this.body = null;
+            document.querySelector('.newsList .form-new-news').style.display = 'block';
+            document.querySelector('.newsList .show-button').style.display = 'none';
+            document.querySelector('.newsList .hide-button').style.display = 'block';
+        },
+        hideForm: function hideForm() {
+            document.querySelector('.newsList .form-new-news').style.display = 'none';
+            document.querySelector('.newsList .show-button').style.display = 'block';
+            document.querySelector('.newsList .hide-button').style.display = 'none';
+        },
+        changeNews: function changeNews() {
+            var changeLink = document.querySelectorAll('a.change');
+            var exportDef = this;
+            changeLink.forEach(function (el) {
+                var currentEl = el;
+                el.onclick = function (elem) {
+                    var id = currentEl.getAttribute('data-id');
+                    fetch(location.origin + '/api/getNewsContentById?id=' + id, { method: "GET" }).then(function (resp) {
+                        resp.json().then(function (data) {
+                            exportDef.showForm();
+                            exportDef.header = data[0]['news_header'];
+                            exportDef.body = data[0]['new_content'];
+                            exportDef.id = id;
+                        });
+                    });
+                };
+            });
         },
         onSubmit: function onSubmit() {
-            console.log('onSubmit');
-            console.log(this.body, this.body);
+            var exportDef = this;
             var data = {
                 body: this.body,
+                id: this.id,
                 header: this.header
             };
             axios.post(location.origin + '/api/postNews', data).then(function (response) {
-                console.log(response.data);
+                exportDef.$forceUpdate();
             });
         }
     },
@@ -49017,7 +49049,7 @@ var render = function() {
     _vm._v(" "),
     _c(
       "div",
-      { staticClass: "for-new-news", staticStyle: { display: "none" } },
+      { staticClass: "form-new-news", staticStyle: { display: "none" } },
       [
         _c(
           "form",
@@ -49059,6 +49091,27 @@ var render = function() {
               }
             }),
             _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.id,
+                  expression: "id"
+                }
+              ],
+              attrs: { type: "hidden", name: "news-id" },
+              domProps: { value: _vm.id },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.id = $event.target.value
+                }
+              }
+            }),
+            _vm._v(" "),
             _c("textarea", {
               directives: [
                 {
@@ -49086,7 +49139,13 @@ var render = function() {
       ]
     ),
     _vm._v(" "),
-    _c("button", { on: { click: _vm.showForm } }, [_vm._v("Добавить")])
+    _c("button", { staticClass: "show-button", on: { click: _vm.showForm } }, [
+      _vm._v("Добавить")
+    ]),
+    _vm._v(" "),
+    _c("button", { staticClass: "hide-button", on: { click: _vm.hideForm } }, [
+      _vm._v("Закрыть")
+    ])
   ])
 }
 var staticRenderFns = []

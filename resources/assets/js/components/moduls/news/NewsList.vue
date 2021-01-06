@@ -6,8 +6,9 @@
         </ul>
         <div class='form-new-news' style='display:none'>
             <form @submit.prevent="onSubmit">
-                <input type="text" name ='news-header' v-model="header">
+                <input  type="text" name ='news-header' v-model="header">
                 <input type="hidden" name="_token" value="Global.csrfToken">
+                <input type="hidden" name="news-id" v-model="id">
                 <textarea type='text' name='news-body' v-model="body"> </textarea>
                 <input type="submit" name ='submint'>
             </form>
@@ -22,6 +23,7 @@
         data(){
             return {
                 header: null,
+                id: null,
                 body: null
             }
         },
@@ -41,7 +43,9 @@
                     });
             },
             showForm(){
-                console.log('showForm');
+                this.id = null;
+                this.header = null;
+                this.body = null;
                 document.querySelector('.newsList .form-new-news').style.display='block';
                 document.querySelector('.newsList .show-button').style.display='none';
                 document.querySelector('.newsList .hide-button').style.display='block';
@@ -50,24 +54,35 @@
                 document.querySelector('.newsList .form-new-news').style.display='none';
                 document.querySelector('.newsList .show-button').style.display='block';
                 document.querySelector('.newsList .hide-button').style.display='none';
-                //document.querySelectorAll('.form-new-news input[name="news-header"]').value='';
             },
             changeNews(){
                 let changeLink = document.querySelectorAll('a.change');
+                var exportDef = this;
                 changeLink.forEach(function(el){
                     var currentEl = el;
                     el.onclick = function(elem){
                         let id = currentEl.getAttribute('data-id');
+                        fetch(location.origin+'/api/getNewsContentById?id='+id, {method: "GET"})
+                        .then( function (resp) {
+                           resp.json().then(function(data){
+                               exportDef.showForm();
+                               exportDef.header = data[0]['news_header'];
+                               exportDef.body = data[0]['new_content'];
+                               exportDef.id = id;
+                           })
+                        });
                     }
                 })       
             },
             onSubmit(){
+                var exportDef = this;
                 var data = {
                     body : this.body,
+                    id : this.id,
                     header: this.header
                 }
                 axios.post(location.origin+'/api/postNews', data).then( function(response) {
-                   console.log(response.data);
+                   exportDef.$forceUpdate();
                 });
             }
         },

@@ -17,6 +17,13 @@ class AdminController extends Controller
         return $newsRows;
     }
     
+    public function getNewsContentById(Request $request){
+        $id = $request->get('id');
+        $news = new News;
+        $newsContent = $news->getNewsContentById($id);
+        return json_decode($newsContent);
+    }
+
     public function addNews(Request $requset){
         $news = new News;
         $newsRows = $news->putRows($requset);

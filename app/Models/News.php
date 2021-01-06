@@ -11,13 +11,24 @@ class News extends Model
     }
     
     public function getAllNews(){
-        return $this->get(['id', 'news_header', 'new_content']);
+        return $this->get(['id', 'news_header']);
     }
     
+    public function getNewsContentById($id){
+        return $this->where('id','=', $id)->get(['new_content', 'news_header']);
+    }
+
     public function putRows($request){
-        return $this->insert([
+        if(empty($request['id'])){
+           return $this->insert([
             'news_header' => $request['header'],
             'new_content' => $request['body']
-        ]);
+           ]);         
+        }else{
+            return $this->where('id', $request['id'])->update([
+                'news_header' => $request['header'],
+                'new_content' => $request['body']
+            ]);
+        }
     }
 }

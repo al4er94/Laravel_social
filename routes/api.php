@@ -22,3 +22,5 @@ Route::post('/adminLogin/auth', 'Admin\AdminAuth@postAuth');
 
 Route::get('/getNews', 'Admin\AdminController@getNews');
 Route::post('/postNews', 'Admin\AdminController@addNews');
+
+Route::get('/getNewsContentById', 'Admin\AdminController@getNewsContentById');
