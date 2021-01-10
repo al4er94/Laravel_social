@@ -35,10 +35,13 @@
                         resp.json().then(function(data){
                             var html = '';
                             data.forEach(function(currentValue){
-                                html += '<li>' + currentValue.news_header + ' '+'<a class="change" data-id="'+currentValue.id+'">ред.</a></li>';
+                                html += '<li>' + currentValue.news_header + ' '+'<a class="change" data-id="'+currentValue.id+'">ред.</a>';
+                                html +='<a class="delete" data-id="'+currentValue.id+'">уд.</a>';        
+                                html +='</li>';
                             })
                             document.querySelector('.newsList #newsListUl').innerHTML=html;
                             exportDef.changeNews();
+                            exportDef.deleteNews();
                         });
                     });
             },
@@ -74,6 +77,9 @@
                     }
                 })       
             },
+            deleteNews(){
+                
+            },
             onSubmit(){
                 var exportDef = this;
                 var data = {
@@ -82,7 +88,7 @@
                     header: this.header
                 }
                 axios.post(location.origin+'/api/postNews', data).then( function(response) {
-                   exportDef.$forceUpdate();
+                   exportDef.getNews(); 
                 });
             }
         },
