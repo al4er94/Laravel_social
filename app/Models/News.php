@@ -31,4 +31,8 @@ class News extends Model
             ]);
         }
     }
+    
+    public function deleteNews($id){
+        return $this->where('id', $id)->delete();
+    }
 }

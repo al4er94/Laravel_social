@@ -35,8 +35,8 @@
                         resp.json().then(function(data){
                             var html = '';
                             data.forEach(function(currentValue){
-                                html += '<li>' + currentValue.news_header + ' '+'<a class="change" data-id="'+currentValue.id+'">ред.</a>';
-                                html +='<a class="delete" data-id="'+currentValue.id+'">уд.</a>';        
+                                html += '<li>' + currentValue.news_header + ' '+'<a class="change-news" data-id="'+currentValue.id+'">ред.</a>';
+                                html +='<a class="delete-news" data-id="'+currentValue.id+'">уд.</a>';        
                                 html +='</li>';
                             })
                             document.querySelector('.newsList #newsListUl').innerHTML=html;
@@ -59,7 +59,7 @@
                 document.querySelector('.newsList .hide-button').style.display='none';
             },
             changeNews(){
-                let changeLink = document.querySelectorAll('a.change');
+                let changeLink = document.querySelectorAll('a.change-news');
                 var exportDef = this;
                 changeLink.forEach(function(el){
                     var currentEl = el;
@@ -78,7 +78,20 @@
                 })       
             },
             deleteNews(){
-                
+                let deleteLink = document.querySelectorAll('a.delete-news');
+                var exportDef = this;
+                deleteLink.forEach(function(el){
+                    var currentEl = el;
+                    el.onclick = function(elem){
+                        let id = currentEl.getAttribute('data-id');
+                        fetch(location.origin+'/api/deleteNews?id='+id, {method: "GET"})
+                        .then( function (resp) {
+                           resp.json().then(function(data){
+                               exportDef.getNews(); 
+                           })
+                        });
+                    }
+                });
             },
             onSubmit(){
                 var exportDef = this;

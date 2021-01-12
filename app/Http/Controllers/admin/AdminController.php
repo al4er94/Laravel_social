@@ -32,4 +32,9 @@ class AdminController extends Controller
         $newsRows = $this->news->putRows($requset);
         return json_decode($newsRows);
     }
+    
+    public function deleteNews(Request $request){
+        $id = $request->get('id');
+        return $this->news->deleteNews($id);
+    }
 }

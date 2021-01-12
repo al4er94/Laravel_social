@@ -24,3 +24,4 @@ Route::get('/getNews', 'Admin\AdminController@getNews');
 Route::post('/postNews', 'Admin\AdminController@addNews');
 
 Route::get('/getNewsContentById', 'Admin\AdminController@getNewsContentById');
+Route::get('/deleteNews', 'Admin\AdminController@deleteNews');
