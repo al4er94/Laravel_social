@@ -14,7 +14,7 @@ class AddShippedViaAndTermsColumsToPurchaseOrdersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('is_admin');
+            $table->string('is_admin')->default('0');
         });
     }
 
